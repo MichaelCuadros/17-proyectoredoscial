@@ -2,13 +2,18 @@ import React from 'react'
 import { useForm } from '../../hooks/useForm'
 import {Global} from '../../helpers/Global'
 import useAuth from '../../hooks/useAuth';
+import { useState } from 'react';
 export const Login = () => {
 
     const { form, changed } = useForm({});
     const {setAuth}=useAuth();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const Login =async (e) => {
         e.preventDefault();
+        setIsLoading(true); // Cambia el estado a "cargando"
+
         let newUser = form;
 
         //logearte
@@ -21,7 +26,7 @@ export const Login = () => {
         });
         const data=await request.json();
         console.log(data.user.token);
-     
+        setIsLoading(false); // Cambia el estado de vuelta a "no cargando"
         //Persistir los datos en el navegador
         if(data.status=="success"){
             //en el localstoraged guardar token y usuario
@@ -34,6 +39,8 @@ export const Login = () => {
 
             //redireccion
             window.location.reload();
+        }else {
+            setError('Fallo al autenticarse'); // Establece el mensaje de error
         }
     }
 
@@ -55,7 +62,8 @@ export const Login = () => {
                     </div>
                     <input type='submit' value="Identificate" className='btn btn-success' />
                 </form>
-
+                {isLoading && <p>Cargando...</p>}
+            {error && <p>{error}</p>}
             </div>
         </>
     )
