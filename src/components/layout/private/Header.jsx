@@ -8,7 +8,7 @@ export const Header = () => {
         <header className="layout__navbar">
 
             <div className="navbar__header">
-                <a href="#" className="navbar__title">NGSOCIAL</a>
+                <a href="#" className="navbar__title">FaceMichael</a>
             </div>
 
         <Nav/>
