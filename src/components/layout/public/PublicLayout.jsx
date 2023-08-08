@@ -19,7 +19,7 @@ export const PublicLayout = () => {
         <section className='layout_content'>
           {!auth._id?
             <Outlet/>
-            : <Navigate to ="/social"/> 
+            : <Navigate to ="/social/people"/> 
             }
         </section>
         
